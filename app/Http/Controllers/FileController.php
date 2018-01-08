@@ -9,12 +9,18 @@ class FileController extends Controller
     //
     public function index()
     {
-        return '显示页面';
+        return view('index');
     }
 
-    public function showUploaded()
+    public function showUploaded(Request $request)
     {
-        return '显示上传文件内容';
+//        return '显示上传文件内容';
+        if (!$request->hasFile('txt')) {
+            echo 'POST里没有txt文件';
+        }
+        $file = $request->txt;
+        $file->storeAs('',$file->getClientOriginalName());
+        return $file->extension();
     }
 
     public function showFixed()

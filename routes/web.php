@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'FileController@index');
-Route::get('up', 'FileController@showUploaded');
+Route::any('up', 'FileController@showUploaded');
 Route::get('fix', 'FileController@showFixed');
 Route::get('down', 'FileController@downLoad');
 Route::get('clean', 'FileController@cleanUp');
