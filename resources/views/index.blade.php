@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title></title>
     <style type="text/css">
-        #upload {
+        #header {
             height: 150px;
             background: #808080;
             margin: 10px;
@@ -37,6 +37,7 @@
             padding: 3px 5px;
         }
     </style>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
         function funcsrcoll1()
         {
@@ -48,16 +49,43 @@
             show.scrollLeft = show_fix.scrollLeft;
             show.scrollTop = show_fix.scrollTop;
         }
+
+        function uploadPic() {
+          var form = document.getElementById('upload'),
+            formData = new FormData(form);
+          $.ajax({
+           url:"{{ url('up') }}",   //js函数内部也可以调用php函数
+           type:"post",
+           data:formData,
+           processData:false,
+           contentType:false,
+           success:function(res){
+//            if(res){
+//             alert("上传成功！");
+//            }
+            console.log(res);
+            $("#txt").val("");
+            $("#show").html(res);
+//            $(".showUrl").html(res);
+//            $(".showPic").attr("src",res);
+           },
+           error:function(err){
+            alert("网络连接失败,稍后重试",err);
+           }
+
+          })
+
+         }
     </script>
 </head>
 <body>
 <div id="container">
-    <div id="upload">
+    <div id="header">
         {{--<button id="1">上传</button>--}}
-        <form enctype="multipart/form-data" action="{{ url('up') }}" method="post">
+        <form id="upload" enctype="multipart/form-data" action="{{ url('up') }}" method="post">
             {{ csrf_field() }}
             <input type="file" name="txt" id="txt"/>
-            <input type="submit" value="提交" id="submit" />
+            <input type="button" value="提交" id="submit" onclick="uploadPic()"/>
         </form>
 
         <button id="2">修改</button>

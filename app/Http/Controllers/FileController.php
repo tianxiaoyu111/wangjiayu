@@ -19,7 +19,7 @@ class FileController extends Controller
             echo 'POST里没有txt文件';
         }
         $file = $request->txt;
-        $file->storeAs('',$file->getClientOriginalName());
+        $file->storeAs('up',$file->getClientOriginalName());
         return $file->extension();
     }
 
