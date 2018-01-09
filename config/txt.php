@@ -1,7 +1,7 @@
 <?php
-return [
-    'uploads' => [
-        'storage' => 'local',
-        'webpath' => '/uploads',
-    ],
-];
+//return [
+//    '111' => [
+//        'storage' => 'local',
+//        'webpath' => '/uploads',
+//    ],
+//];
