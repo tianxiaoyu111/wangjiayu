@@ -13,6 +13,6 @@
 
 Route::get('/', 'FileController@index');
 Route::any('up', 'FileController@showUploaded');
-Route::get('fix', 'FileController@showFixed');
+Route::any('fix', 'FileController@showFixed');
 Route::get('down', 'FileController@downLoad');
 Route::get('clean', 'FileController@cleanUp');

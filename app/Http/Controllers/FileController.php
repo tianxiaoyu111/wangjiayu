@@ -15,32 +15,51 @@ class FileController extends Controller
 
     public function showUploaded(Request $request)
     {
-//return '显示上传文件内容';
+        //如果不选文件就点提交则报错
         if (!$request->hasFile('txt')) {
-            echo 'POST里没有txt文件';
-            exit;
+            return false;
         }
+
+        //移动文件
         $file = $request->txt;
         $filename = $file->getClientOriginalName();
         $file->storeAs('up', $filename);
-//        return nl2br(Storage::get('up/'.$file->getClientOriginalName()));
+
+
+        //把文件内容转为html需要的样子，再加上文件名组成json数组
         $contents = Storage::get('up/'.$filename);
-        $arr = explode("\r\n", $contents);//转换成数组
-        foreach ($arr as $key => $val) {
-            $num = '<small style="color: #778899">' . ($key+1) . '</small>' . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ;
-            $arr[$key] = $num.$val;
-        }
-        $str = nl2br(implode("\r\n", $arr));
-        $jsonArr = [
-            'filename' => $filename,
-            'content' => $str,
-        ];
+        $str = txt2html($contents);
+        $jsonArr = str2json($filename, $str);
+
+        //返回json字符串
         return response()->json($jsonArr);
     }
 
-    public function showFixed()
+    public function showFixed(Request $request)
     {
-        return '显示修改后的文件';
+        //如果被修改的文件名不存在则报错
+        $filename = $request->get('filename');
+        if (empty($filename) OR $filename == 'filename') {
+            return false;
+        }
+
+        //把文件以新名字复制进down目录
+        $fixName = 'fix.'.$filename;
+        if (Storage::exists('down/'.$fixName)) {
+            Storage::delete('down/'.$fixName);
+        }
+        Storage::copy('up/'.$filename, 'down/'.$fixName);
+
+        //读取文件内容并修改保存
+
+        //读取修改后的文件内容，将内容转为要输出的json数组
+        $contents = Storage::get('up/'.$filename);
+        $str = txt2html($contents);
+        $jsonArr = str2json($fixName, $str);
+
+        //返回json字符串
+        return response()->json($jsonArr);
+
     }
 
     public function downLoad()
