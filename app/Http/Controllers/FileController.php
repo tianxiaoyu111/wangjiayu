@@ -69,6 +69,13 @@ class FileController extends Controller
 
     public function cleanUp()
     {
-        return '清空';
+        //删除两个文件夹下的所有文件
+        $files = array_merge(Storage::files('up'), Storage::files('down'));
+
+        if (!Storage::delete($files)) {
+            return '文件删除失败';
+        }
+        //返回重定向
+        return redirect('/');
     }
 }

@@ -23,21 +23,24 @@
 
         <button id="2" onclick="fix()">修改</button>
         <button id="3">下载</button>
-        <button id="4">重置</button>
+        <button id="4" onclick="location.href='{{ url('clean') }}'">重置</button>
     </div>
-    <div id="left">
-        <span id="filename">filename</span>：
-        <div id="show" onscroll="funcsrcoll1()">
-            <p>王佳雨传文件，点击提交后你会在这里看见文件内容</p>
+    <div id="box">
+        <div id="left">
+            <span id="filename">filename</span>：
+            <div id="show" onscroll="funcsrcoll1()">
+                <p>王佳雨传文件，点击提交后你会在这里看见文件内容</p>
+            </div>
+        </div>
+        <div id="right">
+            <span id="filename_fix">fix.filename</span>：
+            <div id="show_fix" onscroll="funcsrcoll2()">
+                <p>然后点修改，这里显示修改后的文件内容</p>
+                <p>确认没问题点下载，重新开始点重置</p>
+            </div>
         </div>
     </div>
-    <div id="right">
-        <span id="filename_fix">fix.filename</span>：
-        <div id="show_fix" onscroll="funcsrcoll2()">
-            <p>然后点修改，这里显示修改后的文件内容</p>
-            <p>确认没问题点下载，重新开始点重置</p>
-        </div>
-    </div>
+
 </div>
 
 <script src="{{asset('js/wangjiayu.js')}}"></script>
