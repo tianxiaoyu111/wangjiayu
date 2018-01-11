@@ -14,5 +14,5 @@
 Route::get('/', 'FileController@index');
 Route::any('up', 'FileController@showUploaded');
 Route::any('fix', 'FileController@showFixed');
-Route::get('down', 'FileController@downLoad');
+Route::get('down/{filename}', 'FileController@download');
 Route::get('clean', 'FileController@cleanUp');

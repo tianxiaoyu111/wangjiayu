@@ -62,9 +62,14 @@ class FileController extends Controller
 
     }
 
-    public function downLoad()
+    public function download($filename)
     {
-        return '下载文件';
+        //如果文件夹下没有这个文件，则通知文件缺失
+        if (!Storage::exists('down/'.$filename)) {
+            return '没有此文件，重置再弄，弄不好找爸爸';
+        }
+        //下载文件
+        return response()->download(public_path('uploads/down/') . $filename);
     }
 
     public function cleanUp()

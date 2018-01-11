@@ -22,7 +22,7 @@
         </form>
 
         <button id="2" onclick="fix()">修改</button>
-        <button id="3">下载</button>
+        <button id="3" onclick="down()">下载</button>
         <button id="4" onclick="location.href='{{ url('clean') }}'">重置</button>
     </div>
     <div id="box">
@@ -46,7 +46,7 @@
 <script src="{{asset('js/wangjiayu.js')}}"></script>
 <script src="{{asset('js/up.js')}}"></script>
 <script src="{{asset('js/fix.js')}}"></script>
-{{--<script src="{{asset()}}"></script>--}}
+<script src="{{asset('js/down.js')}}"></script>
 
 </body>
 </html>
