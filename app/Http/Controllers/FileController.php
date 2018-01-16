@@ -51,9 +51,12 @@ class FileController extends Controller
         Storage::copy('up/'.$filename, 'down/'.$fixName);
 
         //读取文件内容并修改保存
+        $contents = Storage::get('down/'.$fixName);
+        $contents = doFix($contents);
+        Storage::put('down/'.$fixName, $contents);
 
         //读取修改后的文件内容，将内容转为要输出的json数组
-        $contents = Storage::get('up/'.$filename);
+        $contents = Storage::get('down/'.$fixName);
         $str = txt2html($contents);
         $jsonArr = str2json($fixName, $str);
 
@@ -83,4 +86,6 @@ class FileController extends Controller
         //返回重定向
         return redirect('/');
     }
+
+
 }
